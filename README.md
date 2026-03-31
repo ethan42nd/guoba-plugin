@@ -64,7 +64,8 @@ npm install express multer body-parser jsonwebtoken
 - 主界面
   ![001](./resources/images/readme/001.png)
 
-- 查看插件README (暂未适配)
+- 查看插件README
+  ![002](./resources/images/readme/002.png)
 
 - 基础配置
   ![003](./resources/images/readme/003.png)
@@ -72,7 +73,8 @@ npm install express multer body-parser jsonwebtoken
 - 群组配置
   ![004](./resources/images/readme/004.png)
 
-- 编辑喵喵帮助  (暂未适配)
+- 编辑喵喵帮助
+  ![005](./resources/images/readme/005.png)
 
 # 免责声明
 
