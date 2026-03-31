@@ -1,24 +1,10 @@
-# Guoba-Plugin
+# Guoba-Plugin Fork
 
-`Guoba-Plugin`是`Yunzai-Bot`的扩展插件，主要提供后台管理界面。
+`Guoba-Plugin Fork`是`Yunzai-Bot`的扩展插件，主要提供后台管理界面。
 
-> 管理面板仅支持V3版本的Yunzai；V2版本Yunzai仅支持迁移至V3功能。
+> 原项目地址：[gitee](https://gitee.com/guoba-yunzai/guoba-plugin) | [github](https://github.com/QingYingX-Bot/guoba-plugin)
 
 具体功能可在安装插件后，通过发送`#锅巴帮助`来进行查看。
-
-## 已实现的功能
-
-- [x] 主人登录
-    - [x] #锅巴登录
-    - [x] 控制台验证码登录
-- [x] 配置文件管理
-- [x] plugin插件管理
-    - [x] plugin插件配置
-    - [x] 安装、卸载插件 [@0卡苏打水](https://github.com/CikeyQi)
-- [x] 编辑喵喵帮助 [@realhuhu](https://github.com/realhuhu)
-- [x] V2云崽丝滑迁移至V3（[视频教程](https://www.bilibili.com/video/BV1fP411T7KM)）
-
-[TODO代办](https://gitee.com/guoba-yunzai/resources/blob/master/other/TODO.md)
 
 ## 安装插件
 
@@ -26,17 +12,10 @@
 
 在云崽根目录下打开终端，运行：
 
-* 使用 Gitee
-``` bash
-git clone --depth=1 https://gitee.com/guoba-yunzai/guoba-plugin.git ./plugins/Guoba-Plugin/
-```
-
 * 使用 Github
 ``` bash
-git clone --depth=1 https://github.com/guoba-yunzai/guoba-plugin.git ./plugins/Guoba-Plugin/
+git clone --depth=1 https://github.com/QingYingX-Bot/guoba-plugin.git ./plugins/Guoba-Plugin/
 ```
-
-> 注：根据你的网络情况选择不同的仓库地址，在国内使用Gitee相对稳定
 
 #### 第 2 步：安装依赖
 
@@ -85,8 +64,7 @@ npm install express multer body-parser jsonwebtoken
 - 主界面
   ![001](./resources/images/readme/001.png)
 
-- 查看插件README
-  ![002](./resources/images/readme/002.png)
+- 查看插件README (暂未适配)
 
 - 基础配置
   ![003](./resources/images/readme/003.png)
@@ -94,8 +72,7 @@ npm install express multer body-parser jsonwebtoken
 - 群组配置
   ![004](./resources/images/readme/004.png)
 
-- 编辑喵喵帮助
-  ![005](./resources/images/readme/005.png)
+- 编辑喵喵帮助  (暂未适配)
 
 # 免责声明
 
@@ -104,15 +81,18 @@ npm install express multer body-parser jsonwebtoken
 
 # 其他
 
-- 最后求个个star或者[爱发电](https://afdian.net/a/zolay-poi)
+- 最后求个个star
   你的支持是维护本项目的动力~
 
-* Yunzai-Bot
-    - [gitee](https://gitee.com/Le-niao/Yunzai-Bot)
-    - [github](https://github.com/Le-niao/Yunzai-Bot)
-* Yunzai插件索引
-    - [gitee](https://gitee.com/yhArcadia/Yunzai-Bot-plugins-index)
-    - [github](https://github.com/yhArcadia/Yunzai-Bot-plugins-index)
+* 原 Guoba-Plugin
+    - [gitee](https://gitee.com/guoba-yunzai/guoba-plugin)
+    - [github](https://github.com/QingYingX-Bot/guoba-plugin)
+* TRSS-Yunzai
+    - [gitee](https://gitee.com/TimeRainStarSky/Yunzai)
+    - [github](https://github.com/TimeRainStarSky/Yunzai)
 * Miao-Plugin
     - [gitee](https://github.com/yoimiya-kokomi/miao-plugin)
     - [github](https://github.com/yoimiya-kokomi/miao-plugin)
+* Yunzai插件索引
+    - [gitee](https://gitee.com/yhArcadia/Yunzai-Bot-plugins-index)
+    - [github](https://github.com/yhArcadia/Yunzai-Bot-plugins-index)

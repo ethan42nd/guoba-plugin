@@ -25,7 +25,7 @@ export class GuobaLogin extends plugin {
 
     let webAddress
     try {
-      webAddress = await this.loginService.setQuickLogin(this.e.user_id)
+      webAddress = await this.loginService.setQuickLogin(this.buildQuickLoginContext())
     } catch (e) {
       console.error(e)
       return this.reply(
@@ -80,6 +80,22 @@ export class GuobaLogin extends plugin {
       }
     } else {
       await this.reply(await makeForwardMsg(this.e, message))
+    }
+  }
+
+  buildQuickLoginContext () {
+    const sourceBotUin = String(
+      this.e?.self_id || this.e?.bot?.self_id || this.e?.bot?.uin || ''
+    ).trim()
+    const sourceBotName = String(this.e?.bot?.nickname || this.e?.bot?.name || '').trim()
+    const sourcePlatform = String(this.e?.platform || '').trim()
+    const username = String(this.e?.user_id || 'admin').trim() || 'admin'
+
+    return {
+      username,
+      sourceBotUin,
+      sourceBotName,
+      sourcePlatform,
     }
   }
 }

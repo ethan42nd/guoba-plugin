@@ -26,19 +26,23 @@ const pluginsIndexMenu = {
 // noinspection JSUnusedGlobalSymbols
 export async function usePluginsMenu() {
   const pluginMenus = []
+  let miaoPluginDetailMenu = null
   // 遍历所有插件
   GuobaSupportMap.forEach((value, name) => {
     if (!parseShowInMenu(value)) {
       return
     }
 
-    pluginMenus.push({
+    const pluginIconPath = getPluginIconPath(value.pluginInfo)
+    const pluginIcon = pluginIconPath || value.pluginInfo?.icon || 'clarity:plugin-line'
+
+    const detailMenu = {
       path: `/plugin/@/${name}`,
       name: 'PluginDetail_' + name,
       component: `/guoba/plugins/plugin-detail/index`,
       meta: {
         title: value.pluginInfo?.title ?? name,
-        icon: value.pluginInfo?.icon ?? 'clarity:plugin-line',
+        icon: pluginIcon,
         ignoreRoute: true,
       },
       guobaMeta: {
@@ -46,11 +50,30 @@ export async function usePluginsMenu() {
           name: name,
           icon: value.pluginInfo?.icon,
           iconColor: value.pluginInfo?.iconColor,
-          iconPath: getPluginIconPath(value.pluginInfo),
+          iconPath: pluginIconPath,
         },
       }
-    })
+    }
+
+    if (name === 'miao-plugin') {
+      miaoPluginDetailMenu = detailMenu
+      return
+    }
+
+    pluginMenus.push(detailMenu)
   })
+
+  // 喵喵插件额外功能
+  const miaoExtraMenus = await useMiaoPluginMenu()
+  if (miaoPluginDetailMenu && miaoExtraMenus.length > 0) {
+    pluginMenus.push(buildMiaoPluginMenu(miaoPluginDetailMenu, miaoExtraMenus))
+  } else {
+    if (miaoPluginDetailMenu) {
+      pluginMenus.push(miaoPluginDetailMenu)
+    }
+    pluginMenus.push(...miaoExtraMenus)
+  }
+
   if (pluginMenus.length > 0) {
     pluginMenus.push({
       path: `/plugin/@/:name`,
@@ -62,8 +85,6 @@ export async function usePluginsMenu() {
       },
     })
   }
-  // 喵喵插件额外功能
-  pluginMenus.push(...(await useMiaoPluginMenu()))
 
   if (pluginMenus.length > 0) {
     return [
@@ -92,11 +113,11 @@ export async function usePluginsMenu() {
 }
 
 const miaoMenu = {
-  path: '/plugin/extra/miao-plugin',
+  path: '/plugin/@/miao-plugin/help',
   name: 'MiaoPlugin',
   component: '/guoba/plugins/extra-config/miao-plugin/index',
   meta: {
-    title: '喵喵帮助',
+    title: '喵喵配置',
     icon: 'twemoji:heart-with-ribbon',
   },
 }
@@ -127,4 +148,35 @@ async function useMiaoPluginMenu() {
     }
   }
   return []
+}
+
+function buildMiaoPluginMenu(miaoPluginDetailMenu, miaoExtraMenus) {
+  const miaoIconPath = miaoPluginDetailMenu?.guobaMeta?.plugin?.iconPath
+
+  const configMenu = {
+    ...miaoPluginDetailMenu,
+    path: '/plugin/@/miao-plugin/config',
+    name: `${miaoPluginDetailMenu.name}_Config`,
+    meta: {
+      ...(miaoPluginDetailMenu.meta ?? {}),
+      title: '插件配置',
+      icon: 'ion:settings-outline',
+      ignoreRoute: true,
+    },
+  }
+
+  return {
+    path: '/plugin/@/miao-plugin',
+    name: `${miaoPluginDetailMenu.name}_Group`,
+    meta: {
+      title: miaoPluginDetailMenu.meta?.title ?? 'Miao-Plugin',
+      icon: miaoIconPath ?? miaoPluginDetailMenu.meta?.icon ?? 'clarity:plugin-line',
+      ignoreRoute: true,
+    },
+    redirect: configMenu.path,
+    children: [
+      configMenu,
+      ...miaoExtraMenus,
+    ],
+  }
 }

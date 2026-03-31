@@ -1,0 +1,1 @@
+import{at as e,xt as t}from"./vue.runtime.esm-bundler-Cn9skj67.js";function n(n){let r=t();return e(()=>{r.value=n()},{flush:`sync`}),r}export{n as t};

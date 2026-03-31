@@ -9,8 +9,9 @@ export class LoginService extends Service {
   }
 
   /** 注册并保存Token */
-  signToken(username) {
-    let token = jwt.sign({username}, cfg.getJwtSecret())
+  signToken(loginContext) {
+    const payload = this.normalizeLoginPayload(loginContext)
+    let token = jwt.sign(payload, cfg.getJwtSecret())
     // 将token存入redis
     let redisKey = this.getRedisKey(token)
     redis.set(redisKey, token, {EX: 3600 * 24})
@@ -24,9 +25,9 @@ export class LoginService extends Service {
     }
   }
 
-  async setQuickLogin(username) {
+  async setQuickLogin(loginContext) {
     let {redisKey, code} = this.getQuickLoginRedisKey(null)
-    let token = this.signToken(username)
+    let token = this.signToken(loginContext)
     redis.set(redisKey, token, {EX: 180})
     let webAddress = await getAllWebAddress()
     for (let [key, address] of Object.entries(webAddress)) {
@@ -82,5 +83,26 @@ export class LoginService extends Service {
 
   getRedisKey(token) {
     return `${Constant.REDIS_PREFIX}access-token:${token}`
+  }
+
+  normalizeLoginPayload(loginContext) {
+    if (typeof loginContext === 'object' && loginContext !== null) {
+      const username = String(loginContext.username || 'admin').trim() || 'admin'
+      const sourceBotUin = String(loginContext.sourceBotUin || '').trim()
+      const sourceBotName = String(loginContext.sourceBotName || '').trim()
+      const sourcePlatform = String(loginContext.sourcePlatform || '').trim()
+      return {
+        username,
+        sourceBotUin,
+        sourceBotName,
+        sourcePlatform,
+      }
+    }
+    return {
+      username: String(loginContext || 'admin').trim() || 'admin',
+      sourceBotUin: '',
+      sourceBotName: '',
+      sourcePlatform: '',
+    }
   }
 }
