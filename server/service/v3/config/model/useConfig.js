@@ -407,6 +407,32 @@ const otherConfig = {
             allowDel: true,
           },
         },
+        {
+          field: 'pluginRepoSource',
+          label: '插件安装源',
+          bottomHelpMessage: '自动优先使用插件已配置的直连源，其次 GitHub 镜像，最后回退到 GitHub；其余选项仅在对应源存在时生效',
+          component: 'Select',
+          componentProps: {
+            options: [
+              {label: '自动', value: 'auto'},
+              {label: 'GitHub 原始地址', value: 'github'},
+              {label: 'GitHub 镜像', value: 'github-mirror'},
+              {label: '插件直连源', value: 'direct'},
+              {label: 'Gitee（如存在）', value: 'gitee'},
+              {label: 'GitCode（如存在）', value: 'gitcode'},
+            ],
+            placeholder: '请选择插件安装源',
+          },
+        },
+        {
+          field: 'pluginGitHubMirror',
+          label: 'GitHub 镜像前缀',
+          bottomHelpMessage: '当插件安装源设为 GitHub 镜像时使用，例如 https://ghfast.top/',
+          component: 'Input',
+          componentProps: {
+            placeholder: '请输入 GitHub 镜像前缀',
+          },
+        },
       ],
     },
   ],
